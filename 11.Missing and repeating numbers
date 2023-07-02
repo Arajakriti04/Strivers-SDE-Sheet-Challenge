@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{
+	// Write your code here 
+    long long int s = 0;
+    long long int ss =0;
+    for(int i=0;i<n;i++){
+        s+=arr[i];
+        ss+=(arr[i]*arr[i]);
+    }
+    long long x = n;
+    long long int ts = (x*(x+1))/2;
+    long long int tss = (x*(x+1)*(2*x+1))/6;
+    
+    long long int sub = ts-s;
+    long long int ssub = tss-ss;
+    long long int add = ssub/sub;
+
+    
+    long long int m = (add+sub)/2;
+    long long int r = (add-sub)/2;
+    
+    return {m,r};
+}
