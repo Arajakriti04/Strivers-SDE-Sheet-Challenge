@@ -1,0 +1,24 @@
+#include <bits/stdc++.h> 
+int uniqueSubstrings(string input)
+{
+    //Write your code here
+    int ans = 0;
+    int i=0,j=0;
+    int n = input.size();
+    string t = "";
+    vector<int> arr(26,0);
+    while(i<n && j<n){
+        if(arr[input[j]-'a']){
+            while(i<j && input[i]!=input[j]){
+                arr[input[i]-'a'] = 0;
+                i++;
+            }
+            i++;
+        }
+        ans = max(ans,j-i+1);
+        arr[input[j]-'a'] = 1;
+        j++;
+    }
+    
+    return ans;
+}
