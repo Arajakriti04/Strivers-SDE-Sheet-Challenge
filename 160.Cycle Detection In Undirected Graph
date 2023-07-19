@@ -1,0 +1,79 @@
+#include<bits/stdc++.h>
+/*bool isCyclicBFS(int src,unordered_map<int, bool>& visited,unordered_map<int,list<int>>& adj){
+    unordered_map<int,int> parent;
+
+    parent[src]=-1;
+    visited[src]=true;
+    queue<int>q;
+    q.push(src);
+    while(!q.empty()){
+        int front=q.front();
+        q.pop();
+        for(auto it:adj[front]){
+            if(visited[it]==true && it!=parent[front]){
+                return true;
+            }
+            else if(!visited[it]){
+                q.push(it);
+                visited[it]=true;
+                parent[it]=front;
+            }
+        }
+    }
+    return false;
+}
+
+string cycleDetection (vector<vector<int>>& edges, int n, int m)
+{
+    // Write your code here.
+    unordered_map<int,list<int>> adj;
+    for(int i=0;i<n; i++){
+        int u=edges[i][0];
+        int v=edges[i][1];
+
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    
+    unordered_map<int, bool> visited;
+    for(int i=0; i<n; i++){
+        if(!visited[i]){
+            bool ans=isCyclicBFS(i,visited,adj);
+            if(ans==1)
+            return "YES";
+        }
+    }
+    return "NO";
+    */
+bool dfs(int src,int parent,vector<int> adj[],int vis[]){
+     vis[src]=1;
+     for(auto it:adj[src]){
+         if(!vis[it]){
+             if(dfs(it,src,adj,vis))
+             return true;
+         }
+         else if(it!=parent)
+         return true;
+     }
+     return false;
+ }
+
+string cycleDetection (vector<vector<int>>& edges, int n, int m)
+{
+   vector<int> adj[n+1];
+   for(int i=0;i<m;i++){
+       int u=edges[i][0];
+       int v=edges[i][1];
+       adj[u].push_back(v);
+       adj[v].push_back(u);
+   }
+  int vis[n+1]={0};
+   for(int i=1;i<=n;i++){
+       if(!vis[i]){
+          /* if(bfs(i,adj,vis)==true)*/
+          if(dfs(i,-1,adj,vis))
+           return "Yes";
+       }
+   }
+   return "No";
+}
