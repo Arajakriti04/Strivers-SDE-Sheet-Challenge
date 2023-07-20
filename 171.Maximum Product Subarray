@@ -1,0 +1,72 @@
+#include <bits/stdc++.h> 
+int maximumProduct(vector<int> &arr, int n)
+{
+	// Write your code here
+	int z=0;
+
+    for(int i=0;i<n;i++){
+
+        if(arr[i]<0){
+
+            z++;
+
+        }
+
+    }
+
+    int sum=1;
+
+    int maxi1=INT_MIN;
+
+    for(int i=0;i<n;i++){
+
+        sum=sum*arr[i];
+
+        maxi1=max(maxi1,sum);
+
+        if(sum<0 && (z%2==0||arr[i+1]<0)){
+
+            continue; 
+
+        }
+
+        else{
+
+            sum=max(1,sum);
+
+        }
+
+    }
+
+    int sum2=1;
+
+    int maxi2=INT_MIN;
+
+    for(int i=n-1;i>=0;i--){
+
+        sum2=sum2*arr[i];
+
+        maxi2=max(maxi2,sum2);
+
+        if(sum2<0 && (z%2==0||arr[i-1]<0)){
+
+            continue;
+
+        }
+
+        else{
+
+            sum2=max(1,sum2);
+
+        }
+
+    }
+
+    if(maxi1>maxi2){
+
+        return maxi1;
+
+    }else
+	
+	 return maxi2;
+}
